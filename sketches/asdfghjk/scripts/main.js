@@ -12,6 +12,10 @@ $('#videoThumb').click(function() {
   youTubePlayer.playVideo();
   $('#videoThumb').hide();
 });
+$('#playGame').click(function() {
+  playbackMachine.startPlayback();
+  $(this).hide();
+});
 
 player.makePlayer(document.getElementById('video'), videoId, function(p) {
   youTubePlayer = p;
@@ -35,8 +39,34 @@ var recordingMachine = {
   }
 };
 
+var graphicalFeedback = {
+  tapRings: [],
+  flushTapRings: function() {
+    this.tapRings = _.filter(this.tapRings, function(t) { return t.expired == undefined; });
+  }
+};
+
+function tapRing(keyIdx, time) {
+  this.keyIdx = keyIdx;
+  this.time = time;
+  this.draw = function() {
+    var ttl = 2000;
+    var timeSinceHit = p5.millis() - this.time;
+    if (timeSinceHit > ttl) {
+      this.expired = true;
+    }
+    var rad = p5.map(timeSinceHit, 0, ttl, 0, p5.width);
+    p5.push();
+      p5.fill(0);
+      p5.stroke(p5.map(timeSinceHit, 0, ttl, 0, 255), 255, 255);
+      p5.strokeWeight(p5.map(timeSinceHit, 0, ttl, 20, 0));
+      p5.ellipse((this.keyIdx + 0.5) * (p5.width / 8), p5.height, rad, rad);
+    p5.pop();
+  }
+}
+
 var playbackMachine = {
-  keyPositions: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k'],
+  keyPositions: ['a', 's', 'd', 'f', 'j', 'k', 'l', ';'],
   startPlayback: function() {
     this.isPlaying = true;
     youTubePlayer.playVideo();
@@ -44,8 +74,20 @@ var playbackMachine = {
   loadChoreo: function(choreoTape) {
     this.taps = [];
     for (var i = 0; i < choreoTape.taps.length; i++ ) {
-      this.taps.push(new PlaybackTap(choreoTape.taps[i]));
+      var t = new PlaybackTap(choreoTape.taps[i]);
+      this.taps.push(t);
     }
+    $('#playGame').removeClass('loading').html('Play');
+  },
+  hits: 0,
+  misses: 0,
+  addHit: function() {
+    this.hits ++;
+    $('#hits').html(this.hits);
+  },
+  addMiss: function() {
+    this.misses ++;
+    $('#misses').html(this.misses);
   }
 };
 
@@ -57,28 +99,37 @@ function PlaybackTap(tapData) {
   this.draw = function() {
     var timeUntilTap = this.songTime - youTubePlayer.getCurrentTime();
     var y = p5.map(timeUntilTap, 1, 0, 0, p5.height);
-    p5.fill(255);
-    p5.rect(this.xPosition, y, 50, 50);
-    p5.textSize(64);
-    p5.textAlign(p5.CENTER);
-    p5.fill(0);
-    p5.text(this.keyVal.toUpperCase(), this.xPosition, y + 25);
+    p5.push();
+      p5.fill(255);
+      p5.rect(this.xPosition, y, 50, 50);
+      p5.textSize(64);
+      p5.textAlign(p5.CENTER);
+      p5.fill(0);
+      p5.text(this.keyVal.toUpperCase(), this.xPosition, y + 25);
+    p5.pop();
   }
 }
 
 p5.setup = function() {
   p5.createCanvas(800, 480);
   p5.rectMode(p5.RADIUS);
+  p5.ellipseMode(p5.RADIUS);
+  p5.colorMode(p5.HSB);
 };
 
 p5.draw = function() {
   p5.background(0);
+  for (var i = 0; i < graphicalFeedback.tapRings.length; i++) {
+    graphicalFeedback.tapRings[i].draw();
+  }
+  graphicalFeedback.flushTapRings();
 
   if (playbackMachine.isPlaying) {
     _.forEach(playbackMachine.taps, function(t) {
       t.draw();
-      if (youTubePlayer.getCurrentTime() > t.songTime) {
+      if (youTubePlayer.getCurrentTime() > t.songTime + .5) {
         t.toDelete = true;
+        playbackMachine.addMiss();
       }
     });
     playbackMachine.taps = _.filter(playbackMachine.taps, function(t) {return !t.toDelete});
@@ -100,9 +151,24 @@ keys:
 
 
 p5.keyTyped = function() {
-  var acceptableTaps = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k'];
+  var acceptableTaps = ['a', 's', 'd', 'f', 'j', 'k', 'l', ';'];
   if (acceptableTaps.indexOf(p5.key) != -1) {
-    choreoTape.addTap(p5.key);
+    if (recordingMachine.isRecording) {
+      choreoTape.addTap(p5.key);
+    }
+    if (playbackMachine.isPlaying) {
+      var closest = _.minBy(playbackMachine.taps, function(tap){
+        if (tap.keyVal != p5.key) {
+          return 99999;
+        }
+        return Math.abs(tap.songTime - youTubePlayer.getCurrentTime());
+      });
+      if (Math.abs(closest.songTime - youTubePlayer.getCurrentTime()) < 0.5) {
+        closest.toDelete = true;
+        playbackMachine.addHit();
+      }
+    }
+    graphicalFeedback.tapRings.push(new tapRing(acceptableTaps.indexOf(p5.key), p5.millis()));
   }
   if (p5.key == '1') {
     recordingMachine.startRecording();
@@ -114,10 +180,6 @@ p5.keyTyped = function() {
   }
   if (p5.key == '3') {
     console.log(JSON.stringify(choreoTape.taps));
-  }
-  if (p5.key == '4') {
-    playbackMachine.loadChoreo(choreoTape);
-    playbackMachine.startPlayback();
   }
 
   if (p5.key == 'p') {
@@ -132,6 +194,7 @@ p5.keyTyped = function() {
 
 
 exports.choreoTape = choreoTape;
+exports.playbackMachine = playbackMachine;
 
   });
 
