@@ -1,11 +1,16 @@
-define(['lodash', 'p5', 'player', 'jquery'], function(_, p5, player, $) {
+define(['lodash', 'p5', 'player', 'jquery', 'p5.sound'], function(_, p5, player, $) {
   var exports = {};
 
-  var myp5 = new p5(function( p5 ) {
+  var myp5 = new p5(function( sk ) {
 
+var tambourine;
+sk.preload = function() {
+  tambourine = sk.loadSound('assets/tambourine.mp3');
+  tambourine.setVolume(0.1);
+}
 
 var youTubePlayer;
-var videoId = 'ruAi4VBoBSM';
+var videoId = 'E5yFcdPAGv0';
 
 $('#videoThumb').css('background-image', 'url("https://img.youtube.com/vi/' + videoId + '/mqdefault.jpg")');
 $('#videoThumb').click(function() {
@@ -51,17 +56,17 @@ function tapRing(keyIdx, time) {
   this.time = time;
   this.draw = function() {
     var ttl = 2000;
-    var timeSinceHit = p5.millis() - this.time;
+    var timeSinceHit = sk.millis() - this.time;
     if (timeSinceHit > ttl) {
       this.expired = true;
     }
-    var rad = p5.map(timeSinceHit, 0, ttl, 0, p5.width);
-    p5.push();
-      p5.fill(0);
-      p5.stroke(p5.map(timeSinceHit, 0, ttl, 0, 255), 255, 255);
-      p5.strokeWeight(p5.map(timeSinceHit, 0, ttl, 20, 0));
-      p5.ellipse((this.keyIdx + 0.5) * (p5.width / 8), p5.height, rad, rad);
-    p5.pop();
+    var rad = sk.map(timeSinceHit, 0, ttl, 0, sk.width);
+    sk.push();
+      sk.fill(0);
+      sk.stroke(sk.map(timeSinceHit, 0, ttl, 0, 255), 255, 255);
+      sk.strokeWeight(sk.map(timeSinceHit, 0, ttl, 20, 0));
+      sk.ellipse((this.keyIdx + 0.5) * (sk.width / 8), sk.height, rad, rad);
+    sk.pop();
   }
 }
 
@@ -72,6 +77,7 @@ var playbackMachine = {
     youTubePlayer.playVideo();
   },
   loadChoreo: function(choreoTape) {
+    choreoTape.taps = choreoTape.taps || [];
     this.taps = [];
     for (var i = 0; i < choreoTape.taps.length; i++ ) {
       var t = new PlaybackTap(choreoTape.taps[i]);
@@ -95,30 +101,30 @@ var playbackMachine = {
 function PlaybackTap(tapData) {
   this.keyVal = tapData.key;
   this.songTime = tapData.songTime;
-  this.xPosition = 50 + playbackMachine.keyPositions.indexOf(this.keyVal) * p5.width / 8;
+  this.xPosition = 50 + playbackMachine.keyPositions.indexOf(this.keyVal) * sk.width / 8;
   this.draw = function() {
     var timeUntilTap = this.songTime - youTubePlayer.getCurrentTime();
-    var y = p5.map(timeUntilTap, 1, 0, 0, p5.height);
-    p5.push();
-      p5.fill(255);
-      p5.rect(this.xPosition, y, 50, 50);
-      p5.textSize(64);
-      p5.textAlign(p5.CENTER);
-      p5.fill(0);
-      p5.text(this.keyVal.toUpperCase(), this.xPosition, y + 25);
-    p5.pop();
+    var y = sk.map(timeUntilTap, 1, 0, 0, sk.height);
+    sk.push();
+      sk.fill(255);
+      sk.rect(this.xPosition, y, 50, 50);
+      sk.textSize(64);
+      sk.textAlign(sk.CENTER);
+      sk.fill(0);
+      sk.text(this.keyVal.toUpperCase(), this.xPosition, y + 25);
+    sk.pop();
   }
 }
 
-p5.setup = function() {
-  p5.createCanvas(800, 480);
-  p5.rectMode(p5.RADIUS);
-  p5.ellipseMode(p5.RADIUS);
-  p5.colorMode(p5.HSB);
+sk.setup = function() {
+  sk.createCanvas(800, 480);
+  sk.rectMode(sk.RADIUS);
+  sk.ellipseMode(sk.RADIUS);
+  sk.colorMode(sk.HSB);
 };
 
-p5.draw = function() {
-  p5.background(0);
+sk.draw = function() {
+  sk.background(0);
   for (var i = 0; i < graphicalFeedback.tapRings.length; i++) {
     graphicalFeedback.tapRings[i].draw();
   }
@@ -150,39 +156,40 @@ keys:
 */
 
 
-p5.keyTyped = function() {
+sk.keyTyped = function() {
   var acceptableTaps = ['a', 's', 'd', 'f', 'j', 'k', 'l', ';'];
-  if (acceptableTaps.indexOf(p5.key) != -1) {
+  if (acceptableTaps.indexOf(sk.key) != -1) {
+    tambourine.play();
     if (recordingMachine.isRecording) {
-      choreoTape.addTap(p5.key);
+      choreoTape.addTap(sk.key);
     }
     if (playbackMachine.isPlaying) {
       var closest = _.minBy(playbackMachine.taps, function(tap){
-        if (tap.keyVal != p5.key) {
+        if (tap.keyVal != sk.key) {
           return 99999;
         }
         return Math.abs(tap.songTime - youTubePlayer.getCurrentTime());
       });
-      if (Math.abs(closest.songTime - youTubePlayer.getCurrentTime()) < 0.5) {
+      if (Math.abs(closest.songTime - youTubePlayer.getCurrentTime()) < 0.1) {
         closest.toDelete = true;
         playbackMachine.addHit();
       }
     }
-    graphicalFeedback.tapRings.push(new tapRing(acceptableTaps.indexOf(p5.key), p5.millis()));
+    graphicalFeedback.tapRings.push(new tapRing(acceptableTaps.indexOf(sk.key), sk.millis()));
   }
-  if (p5.key == '1') {
+  if (sk.key == '1') {
     recordingMachine.startRecording();
     $('#videoThumb').hide();
   }
-  if (p5.key == '2') {
+  if (sk.key == '2') {
     recordingMachine.stopRecording();
     youTubePlayer.seekTo(0);
   }
-  if (p5.key == '3') {
+  if (sk.key == '3') {
     console.log(JSON.stringify(choreoTape.taps));
   }
 
-  if (p5.key == 'p') {
+  if (sk.key == 'p') {
     if (youTubePlayer.getPlayerState() == 1) {
       youTubePlayer.pauseVideo();
     } else {
