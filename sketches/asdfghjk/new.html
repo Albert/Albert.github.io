@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>asdf ghjk - an unofficial youtube rhythm game</title>
+    <style type="text/css" media="all">
+label, input { display: block;}
+    </style>
+
+  </head>
+  <body>
+    <h1>Build your own!</h1>
+    <ol>
+      <li>Enter a YouTube URL</li>
+      <li>On the next page, press "Record"</li>
+      <li>Tap a pattern out to the music</li>
+      <li>"Save Choreo" and share it with others</li>
+    </ol>
+    <form id="newChoreoForm" onSubmit="return false">
+      <div>
+        <label for="v">YouTube URL</label>
+        <input type="text" name="v" id="v">
+        <label for="choreographer">Choreographer Name</label>
+        <input type="text" name="choreographer" id="choreographer">
+        <input type="submit" value="Record a Track">
+      </div>
+    </form>
+    <script data-main="scripts/config" src="scripts/lib/require.js"></script>
+    <script>
+      require(['config'], function() {
+        require(['new']);
+      });
+    </script>
+  </body>
+</html>

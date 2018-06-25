@@ -5,6 +5,7 @@ requirejs.config({
     jquery: 'lib/jquery',
     player: 'lib/player',
     lodash: 'lib/lodash',
-    'p5.sound': 'lib/p5.sound'
+    'p5.sound': 'lib/p5.sound',
+    firebase: 'https://www.gstatic.com/firebasejs/5.0.4/firebase',
   }
 });

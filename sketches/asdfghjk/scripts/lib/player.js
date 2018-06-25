@@ -20,6 +20,11 @@ define(['jquery'], function($) {
         videoId: videoId,
         width: 200,
         height: 200,
+        events: {
+          'onReady': function() {
+            $('#sidePanel').addClass('videoLoaded');
+          }
+        },
         // For a list of all parameters, see:
         // https://developers.google.com/youtube/player_parameters
         playerVars: {
