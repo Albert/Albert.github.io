@@ -69,7 +69,11 @@ $('#recorderButton').click(function() {
       youtubeID: param('v'),
       timesLoaded: 0
     }).then(function() {
-      alert(location.protocol + '//' + location.host + location.pathname + '?v=' + param('v') + '&choreo=' + randomKey);
+      var playUrl = location.protocol + '//' + location.host + location.pathname + '?v=' + param('v') + '&choreo=' + randomKey;
+      if (confirm('Choreography recorded!  Try it out:')) {
+        window.location.href = playUrl;
+      }
+      $('#playUrl').html('<a href="' + playUrl + '">Try it here</a>');
     })
 
   }
