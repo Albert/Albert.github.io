@@ -201,6 +201,9 @@ function PlaybackTap(tapData) {
   this.xPosition = 50 + playbackMachine.keyPositions.indexOf(this.keyVal) * sketchWidth / 8;
   this.draw = function() {
     var timeUntilTap = this.songTime - youTubePlayer.getCurrentTime();
+    if (timeUntilTap > 5) {
+      return false;
+    }
     var y = sk.map(timeUntilTap, 1, 0, 0, sk.height) - 50;
     sk.push();
       sk.fill(255);
