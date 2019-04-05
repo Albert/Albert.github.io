@@ -7,7 +7,7 @@
     <style type="text/css" media="all">
 body {
   margin: 0; padding: 0; 
-  min-width: 1100px;
+  width: 1100px;
   position: relative;
 }
 #sidePanel {
@@ -39,8 +39,11 @@ body {
 #sidePanel.recordMode #playbackPanel { display: none; }
 #sidePanel.recordMode #recordPanel { display: block; }
 #sidePanel #recorderButton { display: none; }
-.button {
+
+.button,
+#sidePanel #recorderButton.save {
   display: block;
+  position: static;
   width: 300px;
   height: 60px;
   background-color: green;
@@ -56,6 +59,24 @@ body {
 #loading.button,
 #loading.button:hover {
   background-color: grey;
+}
+#sidePanel #recorderButton,
+#playGame {
+  position: fixed;
+  top: 0;
+  height: 200px;
+  line-height: 200px;
+  background-color: rgba(0, 128, 0, 0.9);
+}
+
+#sidePanel #recorderButton:hover,
+#playGame:hover {
+  background-color: rgba(144, 238, 144, 0.9);
+}
+
+#recorderButton.save {
+  position: static;
+  top: 0;
 }
 .textLine {
   display: block;
