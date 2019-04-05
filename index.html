@@ -1,19 +1,88 @@
 <html>
 <head>
 <title>Albert's Github Sketchpad</title>
+<style>
+
+body {
+  padding: 30px;
+  background-color: #ddd;
+  font-family: "Gill Sans", sans-serif;
+}
+
+h1 small {
+  font-size: 22px;
+  font-weight: normal;
+  margin-left: 4px;
+  color: #888;
+}
+
+.project {
+  float: left;
+  padding: 0 25px 25px;
+  margin: 20px 30px 0 0;
+  max-width: 400px;
+  background-color: #eee;
+  border-radius:  10px;
+  border: 1px solid #999;
+}
+
+.button {
+  display: block;
+  float: left;
+  padding: 10px 15px;
+  margin: 0 10px 10px 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid black;
+  border-radius:  10px;
+  background-color: teal;
+  text-shadow: 1px 1px 1px black;
+}
+
+#footer {
+  clear: both
+}
+
+</style>
 </head>
 <body>
 
-<h1>Random things built lately...</h1>
+  <h1>Albert.<small>github.io</small></h1>
 
-<h2>asdfjklsemi</h2>
-<h3>A YouTube Rhythm Game</h3>
-<p>Make any YouTube video a rhythm game.  Some examples</p>
-<ul>
-  <li><a href="https://albert.github.io/sketches/asdfjklsemi/index.html?v=SSbBvKaM6sk&choreo=64439099503304090">Song 2, the Rhythm Game!</a></li>
-  <li><a href="https://albert.github.io/sketches/asdfjklsemi/index.html?v=sQplvQl_6Rw&choreo=38885807111855360">Pen Pineapple Apple Pen, the Rhythm Game!</a></li>
-  <li><a href="https://albert.github.io/sketches/asdfjklsemi/index.html?v=DK7CVqbtW0A&choreo=28518451631772556">Keyboard Cat, the Rhythm Game!</a></li>
-</ul>
-<p><a href="https://albert.github.io/sketches/asdfjklsemi/new.html">Create your own Rhythm Game here</a></p>
+  <hr />
+<div class="project">
+  <h2>
+    <strong>asdfjklsemi</strong>
+    <br /> The Social YouTube Rhythm Game
+  </h2>
+
+  <p>Make rhythm games and share them with your friends.  Warning, requires volume.  Only works in Desktop:</p>
+  <p>Here are some examples you can play:</p>
+
+  <a class="button" href="https://albert.github.io/sketches/asdfjklsemi/index.html?v=SSbBvKaM6sk&choreo=64439099503304090">Song 2</a>
+  <a class="button" href="https://albert.github.io/sketches/asdfjklsemi/index.html?v=DK7CVqbtW0A&choreo=28518451631772556">Keyboard Cat</a>
+  <a class="button" href="https://albert.github.io/sketches/asdfjklsemi/index.html?v=sQplvQl_6Rw&choreo=38885807111855360">Pen Pineapple Apple Pen</a>
+
+  <div style="clear: both">
+  <hr/>
+  <h3>To make your own</h3>
+  <p>1) Find a song you YouTube.  I found short 30 second jingles to work great.</p>
+  <p>2) Add that song to this:</p>
+  <a class="button" href="https://albert.github.io/sketches/asdfjklsemi/new.html">Create your own Rhythm Game</a>
+  </div>
+</div>
+
+<div class="project">
+  <h2>Vim Motion Graphics</h2>
+  <p>Move with HJKL, vim-style.  Can also move 5 units w/ B and N.</p>
+  <p>Not really too much going on, but just wanting to put this here, that's all.</p>
+  <iframe width="400" height="250" style="margin-bottom: 20px" src="https://www.youtube.com/embed/iDTg27iA0zs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <p>So if you're a vim nerd and you want to try it out:</p>
+  <a class="button" href="https://albert.github.io/sketches/vim-motion-graphics/index.html">Try the Demo</a>
+</div>
+
 </body>
 </html>
