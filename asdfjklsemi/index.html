@@ -18,11 +18,11 @@
         <div class="toLoad">
 
 <p id="isGame">
-  <a class="modalButton primary" id="btnPlayGame" href="#">Play Game</a>
+  <a class="modalButton primary" id="btnPlayGame" href="javascript:;">Play Game</a>
   <a class="modalButton" id="btnTutorial" href="/asdfjklsemi?tutorial=1">Tutorial</a>
 </p>
 <p id="isTutorial">
-  <a class="modalButton primary" id="btnPlayTutorial" href="#">Play Tutorial</a>
+  <a class="modalButton primary" id="btnPlayTutorial" href="javascript:;">Play Tutorial</a>
 </p>
 
           <div class="about"><a href="/#asdfjklsemi">About the game</a></div>
@@ -36,7 +36,6 @@
       <div id="videoThumb"></div>
       <div id="loading" class="button">Loading...</div>
       <div id="playbackPanel">
-        <div id="playGame" class="button">Play</div>
         <div class="textLine">hits: <span id="hits">0</span>... misses: <span id="misses">0</span></div>
         <div class="textLine">Choreographed by: <span id="choreographer">unknown</span></div>
         <div class="textLine">Times played: <span id="playCount">unknown</span></div>
@@ -48,6 +47,9 @@
     </div>
     <script data-main="scripts/config" src="scripts/lib/require.js"></script>
     <script>
+      require.config({
+        urlArgs: "bust=" + (new Date()).getTime()
+      });
       require(['config'], function() {
         require(['main']);
       });

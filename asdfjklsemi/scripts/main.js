@@ -41,18 +41,25 @@ firebase.initializeApp(firebaseConfig);
 var db = firebase.database();
 
 var youTubePlayer;
-
 $('#videoThumb').click(function() {
   youTubePlayer.playVideo();
   $('#videoThumb').hide();
 });
-$('#playGame').click(function() {
+
+// update link to tutorial - currently it naively assumes url has a '?':
+var currHref = document.location.href;
+var newHref = currHref.replace('tutorial=0', '');
+newHref = newHref + '&tutorial=1';
+$('#btnTutorial').attr('href', newHref);
+
+$('#btnPlayGame, #btnPlayTutorial').click(function() {
+  $('#coverageModal').hide();
   playbackMachine.startPlayback();
-  $(this).hide();
   db.ref('choreos/' + param('choreo') + '/timesLoaded').transaction(function(timesLoaded) {
     return timesLoaded + 1;
   });
 });
+
 $('#recorderButton').click(function() {
   var $this = $(this);
   if ($this.hasClass('record')) {
@@ -80,6 +87,7 @@ $('#recorderButton').click(function() {
 
   }
 });
+
 
 var choreoTape = {
   addTap: function(keyVal) {
@@ -183,13 +191,6 @@ var playbackMachine = {
     $('.loader').hide();
     var tutorialState = (param('tutorial') == '1') ? 'tutorial' : 'game';
     $('.toLoad').addClass(tutorialState).show();
-
-    // currently it naively assumes there's a '?':
-    var currHref = document.location.href;
-    var newHref = currHref.replace('tutorial=0', '');
-    newHref = newHref + '&tutorial=1';
-
-    $('#btnTutorial').attr('href', newHref);
   },
   hits: 0,
   misses: 0,
