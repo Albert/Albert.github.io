@@ -181,7 +181,15 @@ var playbackMachine = {
     }
     $('#sidePanel').addClass('choreoLoaded');
     $('.loader').hide();
-    $('.toLoad').show();
+    var tutorialState = (param('tutorial') == '1') ? 'tutorial' : 'game';
+    $('.toLoad').addClass(tutorialState).show();
+
+    // currently it naively assumes there's a '?':
+    var currHref = document.location.href;
+    var newHref = currHref.replace('tutorial=0', '');
+    newHref = newHref + '&tutorial=1';
+
+    $('#btnTutorial').attr('href', newHref);
   },
   hits: 0,
   misses: 0,

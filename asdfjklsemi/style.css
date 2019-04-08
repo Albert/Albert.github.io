@@ -125,6 +125,14 @@ h1 span {
   padding-top: 10px;
 }
 
+.toLoad.game #isTutorial {
+  display: none;
+}
+
+.toLoad.tutorial #isGame {
+  display: none;
+}
+
 .modalButton {
   display: inline-block;
   padding: 10px 30px;
