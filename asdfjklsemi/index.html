@@ -4,125 +4,22 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="initial-scale=0.7,minimum-scale=0.7,maximum-scale=0.7,width=1100,user-scalable=no" />
     <title>asdfjklsemi - The Social YouTube Rhythm Game</title>
-    <style type="text/css" media="all">
-body {
-  margin: 0; padding: 0; 
-  width: 1100px;
-  position: relative;
-  font-family: "Gill Sans", sans-serif;
-}
-#sidePanel {
-  width: 300px;
-  height: 480px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: gainsboro;
-}
-#video,
-#videoThumb {
-  width: 300px;
-  height: 200px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-color: black;
-}
-#videoThumb {
-  display: none; /* this was dumb and done wayy to prematurely */
-}
-#sidePanel #loading { display: block; }
-#sidePanel #playGame { display: none; }
-#sidePanel.videoLoaded.choreoLoaded #loading { display: none; }
-#sidePanel.videoLoaded.choreoLoaded #playGame { display: block; }
-#sidePanel.videoLoaded.recordMode #loading { display: none; }
-#sidePanel.videoLoaded.recordMode #recorderButton { display: block; }
-#sidePanel #playbackPanel { display: block; }
-#sidePanel #recordPanel { display: none; }
-#sidePanel.recordMode #playbackPanel { display: none; }
-#sidePanel.recordMode #recordPanel { display: block; }
-#sidePanel #recorderButton { display: none; }
-
-.button,
-#sidePanel #recorderButton.save {
-  display: block;
-  position: static;
-  width: 300px;
-  height: 60px;
-  background-color: green;
-  color: white;
-  font-size: 40px;
-  font-family: arial, helvetica, sans-serif;
-  text-align: center;
-  line-height: 60px;
-}
-.button:hover {
-  background-color: lightgreen;
-}
-#loading.button,
-#loading.button:hover {
-  background-color: grey;
-}
-#sidePanel #recorderButton,
-#playGame {
-  position: fixed;
-  top: 0;
-  height: 200px;
-  line-height: 200px;
-  background-color: rgba(0, 128, 0, 0.9);
-}
-
-#sidePanel #recorderButton:hover,
-#playGame:hover {
-  background-color: rgba(144, 238, 144, 0.9);
-}
-
-#recorderButton.save {
-  position: static;
-  top: 0;
-}
-.textLine {
-  display: block;
-  width: 300px;
-  height: 40px;
-  text-align: center;
-  line-height: 60px;
-}
-
-#coverageModal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 1100px;
-  height: 480px;
-  z-index: 99;
-  background-color: rgba(255, 255, 255, 0.75);
-}
-
-#coverageModal .inner {
-  padding: 125px 100px;
-  font-size: 30px;
-}
-
-h1, h2 {
-  margin: 0;
-}
-
-#version {
-  font-size: 20px;
-}
-
-    </style>
-
+    <link href="style.css" rel="stylesheet">
   </head>
   <body>
 
     <div id="coverageModal">
       <div class="inner">
-        <h1>asdfjklsemi</h2>
-        <h2>The Social YouTube Rhythm Game</h2>
-        <p id="version">v0.1-alpha</p>
-        <p>Works with Chrome on Desktop</p>
+        <h1 class="clearfix"><span>A</span><span>S</span><span>D</span><span>F</span><span>J</span><span>K</span><span>L</span><span>;</span></h1>
+        <div class="loader">
+          Loading...
+          <div></div>
+        </div>
+        <div class="toLoad">
+          <p><a class="modalButton primary" href="#">Play Game</a> <a class="modalButton" href="#">Tutorial</a></p>
+          <div class="about"><a href="/#asdfjklsemi">About the game</a></div>
+          <a class="modalButton" id="mobileReminder" href="mailto:?subject=Reminder: try asdfjklsemi&body=Sadly, asdfjklsemi supports only desktop browsers.  To remind you to try this later, send yourself this email.%0D%0A%0D%0Ahttps://albert.github.io%23asdfjklsemi">On a mobile device?</a>
+        </div>
       </div>
     </div>
 

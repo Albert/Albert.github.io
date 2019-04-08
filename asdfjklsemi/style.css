@@ -1,0 +1,182 @@
+body {
+  margin: 0; padding: 0; 
+  width: 1100px;
+  position: relative;
+  font-family: "Gill Sans", sans-serif;
+}
+#sidePanel {
+  width: 300px;
+  height: 480px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: gainsboro;
+}
+#video,
+#videoThumb {
+  width: 300px;
+  height: 200px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: black;
+}
+#videoThumb {
+  display: none; /* this was dumb and done wayy to prematurely */
+}
+#sidePanel #loading { display: block; }
+#sidePanel #playGame { display: none; }
+#sidePanel.videoLoaded.choreoLoaded #loading { display: none; }
+#sidePanel.videoLoaded.choreoLoaded #playGame { display: block; }
+#sidePanel.videoLoaded.recordMode #loading { display: none; }
+#sidePanel.videoLoaded.recordMode #recorderButton { display: block; }
+#sidePanel #playbackPanel { display: block; }
+#sidePanel #recordPanel { display: none; }
+#sidePanel.recordMode #playbackPanel { display: none; }
+#sidePanel.recordMode #recordPanel { display: block; }
+#sidePanel #recorderButton { display: none; }
+
+.button,
+#sidePanel #recorderButton.save {
+  display: block;
+  position: static;
+  width: 300px;
+  height: 60px;
+  background-color: green;
+  color: white;
+  font-size: 40px;
+  font-family: arial, helvetica, sans-serif;
+  text-align: center;
+  line-height: 60px;
+}
+.button:hover {
+  background-color: lightgreen;
+}
+#loading.button,
+#loading.button:hover {
+  background-color: grey;
+}
+#sidePanel #recorderButton,
+#playGame {
+  position: fixed;
+  top: 0;
+  height: 200px;
+  line-height: 200px;
+  background-color: rgba(0, 128, 0, 0.9);
+}
+
+#sidePanel #recorderButton:hover,
+#playGame:hover {
+  background-color: rgba(144, 238, 144, 0.9);
+}
+
+#recorderButton.save {
+  position: static;
+  top: 0;
+}
+.textLine {
+  display: block;
+  width: 300px;
+  height: 40px;
+  text-align: center;
+  line-height: 60px;
+}
+
+#coverageModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1100px;
+  height: 480px;
+  z-index: 99;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+#coverageModal .inner {
+  padding: 40px 340px 40px 40px;
+}
+
+#coverageModal .inner p {
+  margin: 15px 0;
+}
+
+h1 {
+  height: 75px;
+  margin: 0;
+}
+
+h1 span {
+  display: block;
+  float: left;
+  border: 1px solid black;
+  width: 75px;
+  height: 75px;
+  text-align: center;
+  line-height: 75px;
+  color: black;
+  text-shadow: 0 0 5px white;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-right: 10px;
+  font-size: 60px;
+}
+
+.toLoad {
+  display: none;
+  padding-top: 10px;
+}
+
+.modalButton {
+  display: inline-block;
+  padding: 10px 30px;
+  margin: 10px 30px 10px 0;
+  font-size: 60px;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid black;
+  border-radius:  10px;
+  background-color: teal;
+  text-shadow: 1px 1px 1px black;
+}
+
+.modalButton.primary {
+  background-color: green;
+}
+
+.modalButton#mobileReminder {
+  font-size: 16px;
+  padding: 5px 15px;
+}
+
+.loader {
+  padding-top: 30px;
+  text-align: center;
+}
+
+.loader div {
+  height: 200px;
+  background-image: url('assets/loading.gif');
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.about {
+  padding-left: 20px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.about a {
+  color: black;
+}
+
+.about a:hover {
+  text-decoration: none;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}

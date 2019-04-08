@@ -7,6 +7,8 @@ define(['lodash', 'p5', 'player', 'jquery', 'firebase', 'p5.sound'], function(_,
     var sketchWidth = 800;
     var sketchHeight = 480;
 
+$('#mobileReminder').attr('href', "mailto:?subject=Reminder: try asdfjklsemi&body=Sadly, asdfjklsemi supports only desktop browsers.  To remind you to try this later, send yourself this email.%0D%0A%0D%0A" + encodeURIComponent(document.location.href));
+
 sk.setup = function() {
   sk.createCanvas(sketchWidth, sketchHeight);
   sk.rectMode(sk.RADIUS);
@@ -178,6 +180,8 @@ var playbackMachine = {
       this.taps.push(t);
     }
     $('#sidePanel').addClass('choreoLoaded');
+    $('.loader').hide();
+    $('.toLoad').show();
   },
   hits: 0,
   misses: 0,
