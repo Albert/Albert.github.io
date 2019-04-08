@@ -28,7 +28,7 @@ sk.preload = function() {
   tambourine = sk.loadSound('assets/tambourine.mp3');
   tambourine.setVolume(0.1);
   trombone = sk.loadSound('assets/error.wav');
-  trombone.setVolume(0.4);
+  trombone.setVolume(0.15);
 }
 
 var firebaseConfig = {
