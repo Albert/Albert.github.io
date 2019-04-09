@@ -36,9 +36,10 @@
       <div id="videoThumb"></div>
       <div id="loading" class="button">Loading...</div>
       <div id="playbackPanel">
-        <div class="textLine">hits: <span id="hits">0</span>... misses: <span id="misses">0</span></div>
+        <div class="textLine">Score: <span id="score">0</span></div>
         <div class="textLine">Choreographed by: <span id="choreographer">unknown</span></div>
         <div class="textLine">Times played: <span id="playCount">unknown</span></div>
+        <div class="textLine"><a id="tweetScore" href="https://twitter.com/intent/tweet?text=I%20just%20played%20asdfjklsemi%20http://albert.github.io/#asdfjklsemi">Share this game on Twitter</a></div>
       </div>
       <div id="recordPanel">
         <div id="recorderButton" class="button record">Record</div>
@@ -47,9 +48,11 @@
     </div>
     <script data-main="scripts/config" src="scripts/lib/require.js"></script>
     <script>
+/*
       require.config({
         urlArgs: "bust=" + (new Date()).getTime()
       });
+*/
       require(['config'], function() {
         require(['main']);
       });

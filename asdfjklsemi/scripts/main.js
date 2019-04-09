@@ -191,19 +191,27 @@ var playbackMachine = {
     $('.loader').hide();
     var tutorialState = (param('tutorial') == '1') ? 'tutorial' : 'game';
     $('.toLoad').addClass(tutorialState).show();
+    this.updateScore();
   },
   hits: 0,
   misses: 0,
+  score: 0,
   addHit: function() {
     this.hits ++;
-    $('#hits').html(this.hits);
+    this.updateScore();
   },
   addMiss: function(t) {
     t.toDelete = true;
     trombone.play();
     graphicalFeedback.addFailure(t)
     this.misses ++;
-    $('#misses').html(this.misses);
+    this.updateScore();
+  },
+  updateScore: function() {
+    this.score = this.hits * 100 - this.misses * 10;
+    $('#score').html(this.score);
+    var tweetUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(document.location.href) + '&text=' + encodeURI('I just got a score of ' + this.score + ' on this YouTube keyboard rhythm game.  Can you do better?  ');
+    $('#tweetScore').attr('href', tweetUrl).html('Share your score on Twitter');
   }
 };
 
