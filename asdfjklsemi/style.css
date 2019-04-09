@@ -24,11 +24,8 @@ body {
 #videoThumb {
   display: none; /* this was dumb and done wayy to prematurely */
 }
-#sidePanel #loading { display: block; }
 #sidePanel #playGame { display: none; }
-#sidePanel.videoLoaded.choreoLoaded #loading { display: none; }
 #sidePanel.videoLoaded.choreoLoaded #playGame { display: block; }
-#sidePanel.videoLoaded.recordMode #loading { display: none; }
 #sidePanel.videoLoaded.recordMode #recorderButton { display: block; }
 #sidePanel #playbackPanel { display: block; }
 #sidePanel #recordPanel { display: none; }
@@ -52,10 +49,6 @@ body {
 .button:hover {
   background-color: lightgreen;
 }
-#loading.button,
-#loading.button:hover {
-  background-color: grey;
-}
 #sidePanel #recorderButton,
 #playGame {
   position: fixed;
@@ -74,12 +67,35 @@ body {
   position: static;
   top: 0;
 }
+
 .textLine {
   display: block;
   width: 300px;
-  height: 40px;
   text-align: center;
-  line-height: 60px;
+  line-height: 1.6;
+}
+
+.textLine.score {
+  font-size: 30px;
+  color: black;
+  font-weight: bold;
+  line-height: 80px;
+}
+
+.textLine.score #score {
+  font-size: 50px;
+}
+
+.textLine.foot {
+  margin-top: 30px;
+  font-size: 12px;
+}
+
+.textLine.foot a {
+  color: black;
+}
+.textLine.foot a:hover {
+  text-decoration:none;
 }
 
 #coverageModal {
