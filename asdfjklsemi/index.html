@@ -24,9 +24,11 @@
 <p id="isTutorial">
   <a class="modalButton primary" id="btnPlayTutorial" href="javascript:;">Play Tutorial</a>
 </p>
-<p id="isChoreoMode">
-  <a class="modalButton primary" id="recorderButton" href="javascript:;">Record</a>
-</p>
+<div id="isChoreoMode">
+  <p>
+    <a class="modalButton primary" id="recorderButton" href="javascript:;">Record</a>
+  </p>
+</div>
 
           <div class="about"><a href="/#asdfjklsemi">About the game</a></div>
           <a class="modalButton" id="mobileReminder" href="mailto:?subject=Reminder: try asdfjklsemi&body=Sadly, asdfjklsemi supports only desktop browsers.  To remind you to try this later, send yourself this email.%0D%0A%0D%0Ahttps://albert.github.io%23asdfjklsemi">On a mobile device?</a>
@@ -51,7 +53,9 @@
         </div>
       </div>
       <div id="recordPanel">
-        <div id="playUrl" class="textLine"></div>
+        <div class="textLine"><a id="saveChoreoButton" href="javascript:;">Save Choreography</a></div>
+        <div class="textLine"><a id="recordAgain" href="javascript:window.location.href=window.location.href">Rerecord (reload)</a></div>
+        <div class="textLine" id="playUrl"></div>
       </div>
     </div>
     <script data-main="scripts/config" src="scripts/lib/require.js"></script>

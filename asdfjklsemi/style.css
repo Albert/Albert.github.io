@@ -23,9 +23,8 @@ body {
 #sidePanel #playGame { display: none; }
 #sidePanel #playbackPanel { display: block; }
 #sidePanel #recordPanel { display: none; }
-#sidePanel.readyToRecord #playbackPanel { display: none; }
-#sidePanel.readyToRecord #recordPanel { display: block; }
-#sidePanel #recorderButton { display: none; }
+.readyToRecord #sidePanel #playbackPanel { display: none; }
+.readyToRecord #sidePanel #recordPanel { display: block; }
 
 .button,
 #sidePanel #recorderButton.save {
@@ -111,7 +110,6 @@ body {
 }
 
 h1 {
-  height: 75px;
   margin: 0;
 }
 

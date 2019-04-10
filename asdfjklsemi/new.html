@@ -2,30 +2,75 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>asdfjklsemi - The Social YouTube Rhythm Game</title>
-    <style type="text/css" media="all">
-label, input { display: block;}
-    </style>
+    <link href="style.css" rel="stylesheet">
+
+<style type="text/css" media="all">
+body {
+  padding: 30px;
+  font-size: 20px;
+  line-height: 1.6;
+}
+h1 {
+  margin-bottom: 20px;
+}
+label, input {
+  display: block;
+}
+label {
+  margin-top: 20px;
+}
+input[type="text"] {
+  font-size: 20px;
+  width: 500px;
+}
+input[type="submit"] {
+  display: inline-block;
+  padding: 5px 15px;
+  margin-top: 30px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid black;
+  border-radius:  10px;
+  background-color: teal;
+  text-shadow: 1px 1px 1px black;
+}
+</style>
 
   </head>
   <body>
-    <h1>Build your own!</h1>
-    <ol>
-      <li>Enter a YouTube URL</li>
-      <li>On the next page, press "Record"</li>
-      <li>Tap a pattern out to the music</li>
-      <li>"Save Choreo" and share it with others</li>
-    </ol>
+    <h1 class="clearfix">
+      <div class="eyebrow">Build your own:</div>
+      <span>A</span><span>S</span><span>D</span><span>F</span><span>J</span><span>K</span><span>L</span><span>;</span></h1>
+    </h1>
+    <div class="instructions">
+      <h2>Instructions</h2>
+      <ol>
+        <li>Fill out the form</li>
+        <li>On the next page, press "Record"</li>
+        <li>Tap a pattern out to the music using the keys <code>ASDFJKL;</code></li>
+        <li>Click "Save Choreography" to try it out before sharing</li>
+      </ol>
+    </div>
     <form id="newChoreoForm" onSubmit="return false">
+      <h2>Form</h2>
       <div>
-        <label for="v">YouTube URL</label>
+        <label for="v">YouTube URL (format: https://www.youtube.com/watch?v=???????????)</label>
         <input type="text" name="v" id="v">
         <label for="choreographer">Choreographer Name</label>
         <input type="text" name="choreographer" id="choreographer">
-        <input type="submit" value="Record a Track">
+        <input type="submit" value="Submit">
       </div>
     </form>
     <script data-main="scripts/config" src="scripts/lib/require.js"></script>
     <script>
+/*
+      require.config({
+        urlArgs: "bust=" + (new Date()).getTime()
+      });
+*/
       require(['config'], function() {
         require(['new']);
       });

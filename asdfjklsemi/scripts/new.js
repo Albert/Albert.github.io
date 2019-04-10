@@ -1,7 +1,7 @@
 define(['jquery'], function($) {
 
   $('#newChoreoForm').submit(function(event) {
-    window.location.href = './index.html?choreo=new&v=' + youtube_parser($('input#v').val()) + '&choreographer=' + $('input#choreographer').val();
+    window.location.href = './?choreo=new&v=' + youtube_parser($('input#v').val()) + '&choreographer=' + $('input#choreographer').val();
     event.preventDefault();
   });
 

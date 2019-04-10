@@ -57,32 +57,29 @@ $('#btnPlayGame, #btnPlayTutorial').click(function() {
 });
 
 $('#recorderButton').click(function() {
-  console.log('hi');
-  var $this = $(this);
-  if ($this.hasClass('record')) {
-    recordingMachine.startRecording();
-    $this.html('Save Choreo').addClass('save').removeClass('record');
-  } else if ($this.hasClass('save')) {
-    $this.hide();
-    recordingMachine.stopRecording();
-    youTubePlayer.seekTo(0);
-    var randomKey = Math.floor(Math.random() * 99999999999999999)
-    db.ref('choreos/' + randomKey).set({
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
-      choreographer: param('choreographer'),
-      choreography: choreoTape.taps,
-      youtubeID: param('v'),
-      timesLoaded: 0
-    }).then(function() {
-      var playUrl = location.protocol + '//' + location.host + location.pathname + '?v=' + param('v') + '&choreo=' + randomKey;
-      if (confirm('Choreography recorded!  Try it out:')) {
-        window.location.href = playUrl;
-      }
-      $('#playUrl').html('<a href="' + playUrl + '">Try it here</a>');
-    })
-  }
+  recordingMachine.startRecording();
+  $('#coverageModal').hide();
 });
 
+$('#saveChoreoButton').click(function() {
+  $(this).hide();
+  recordingMachine.stopRecording();
+  youTubePlayer.seekTo(0);
+  var randomKey = Math.floor(Math.random() * 99999999999999999)
+  db.ref('choreos/' + randomKey).set({
+    timestamp: firebase.database.ServerValue.TIMESTAMP,
+    choreographer: param('choreographer'),
+    choreography: choreoTape.taps,
+    youtubeID: param('v'),
+    timesLoaded: 0
+  }).then(function() {
+    var playUrl = location.protocol + '//' + location.host + location.pathname + '?v=' + param('v') + '&choreo=' + randomKey;
+    if (confirm('Choreography recorded!  Try it out:')) {
+      window.location.href = playUrl;
+    }
+    $('#playUrl').html('<a href="' + playUrl + '">Try it here</a>');
+  })
+});
 
 var choreoTape = {
   addTap: function(keyVal) {
