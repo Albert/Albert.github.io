@@ -187,10 +187,9 @@ var playbackMachine = {
       var t = new PlaybackTap(choreoTape.taps[i]);
       this.taps.push(t);
     }
-    $('#sidePanel').addClass('choreoLoaded');
-    $('.loader').hide();
+    $('body').addClass('choreoLoaded');
     var tutorialState = (param('tutorial') == '1') ? 'tutorial' : 'game';
-    $('.toLoad').addClass(tutorialState).show();
+    $('.toLoad').addClass(tutorialState);
     this.updateScore();
   },
   hits: 0,

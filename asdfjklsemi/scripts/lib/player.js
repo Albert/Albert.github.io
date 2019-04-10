@@ -22,7 +22,7 @@ define(['jquery'], function($) {
         height: 200,
         events: {
           'onReady': function() {
-            $('#sidePanel').addClass('videoLoaded');
+            $('body').addClass('videoLoaded');
           }
         },
         // For a list of all parameters, see:
