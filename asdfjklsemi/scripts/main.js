@@ -41,10 +41,6 @@ firebase.initializeApp(firebaseConfig);
 var db = firebase.database();
 
 var youTubePlayer;
-$('#videoThumb').click(function() {
-  youTubePlayer.playVideo();
-  $('#videoThumb').hide();
-});
 
 // update link to tutorial - currently it naively assumes url has a '?':
 var currHref = document.location.href;
@@ -61,10 +57,10 @@ $('#btnPlayGame, #btnPlayTutorial').click(function() {
 });
 
 $('#recorderButton').click(function() {
+  console.log('hi');
   var $this = $(this);
   if ($this.hasClass('record')) {
     recordingMachine.startRecording();
-    $('#videoThumb').hide();
     $this.html('Save Choreo').addClass('save').removeClass('record');
   } else if ($this.hasClass('save')) {
     $this.hide();
@@ -84,7 +80,6 @@ $('#recorderButton').click(function() {
       }
       $('#playUrl').html('<a href="' + playUrl + '">Try it here</a>');
     })
-
   }
 });
 
@@ -310,11 +305,9 @@ sk.keyTyped = function() {
 player.makePlayer(document.getElementById('video'), param('v'), function(p) {
   youTubePlayer = p;
 });
-$('#videoThumb').css('background-image', 'url("https://img.youtube.com/vi/' + param('v') + '/mqdefault.jpg")');
-
 
 if (param('choreo') == 'new') {
-  $('#sidePanel').addClass('recordMode');
+  $('body').addClass('readyToRecord');
 } else {
   db.ref('choreos/' + param('choreo')).once('value').then(function(snapshot) {
     choreoTape.taps = snapshot.val().choreography;

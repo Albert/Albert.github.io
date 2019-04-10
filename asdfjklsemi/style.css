@@ -12,8 +12,7 @@ body {
   right: 0;
   background-color: gainsboro;
 }
-#video,
-#videoThumb {
+#video {
   width: 300px;
   height: 200px;
   background-size: contain;
@@ -21,14 +20,11 @@ body {
   background-position: center center;
   background-color: black;
 }
-#videoThumb {
-  display: none; /* this was dumb and done wayy to prematurely */
-}
 #sidePanel #playGame { display: none; }
 #sidePanel #playbackPanel { display: block; }
 #sidePanel #recordPanel { display: none; }
-#sidePanel.recordMode #playbackPanel { display: none; }
-#sidePanel.recordMode #recordPanel { display: block; }
+#sidePanel.readyToRecord #playbackPanel { display: none; }
+#sidePanel.readyToRecord #recordPanel { display: block; }
 #sidePanel #recorderButton { display: none; }
 
 .button,
@@ -134,21 +130,21 @@ h1 span {
   font-size: 60px;
 }
 
-body.videoLoaded.choreoLoaded .loader { display: none; }
-body.videoLoaded.choreoLoaded .toLoad { display: block; }
+body.videoLoaded.choreoLoaded .loader,
+body.videoLoaded.readyToRecord .loader { display: none; }
+body.videoLoaded.choreoLoaded .toLoad,
+body.videoLoaded.readyToRecord .toLoad { display: block; }
 
 .toLoad {
   display: none;
   padding-top: 10px;
 }
 
-.toLoad.game #isTutorial {
-  display: none;
-}
-
-.toLoad.tutorial #isGame {
-  display: none;
-}
+.toLoad.game #isTutorial { display: none; }
+.toLoad.tutorial #isGame { display: none; }
+body.choreoLoaded #isChoreoMode {display: none; }
+body.readyToRecord .toLoad #isGame,
+body.readyToRecord .toLoad #isTutorial { display: none; }
 
 .modalButton {
   display: inline-block;
