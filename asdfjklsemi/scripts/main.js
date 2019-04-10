@@ -48,7 +48,12 @@ var newHref = currHref.replace('tutorial=0', '');
 newHref = newHref + '&tutorial=1';
 $('#btnTutorial').attr('href', newHref);
 
+var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
 $('#btnPlayGame, #btnPlayTutorial').click(function() {
+  if (isFirefox) {
+    alert("Unfortunately, Firefox sometimes makes this game slow.\n\nCopy & paste this URL in Chrome or Edge for a better experience.  Sorry!");
+  }
   $('#coverageModal').hide();
   playbackMachine.startPlayback();
   db.ref('choreos/' + param('choreo') + '/timesLoaded').transaction(function(timesLoaded) {
@@ -58,7 +63,11 @@ $('#btnPlayGame, #btnPlayTutorial').click(function() {
 
 $('#recorderButton').click(function() {
   recordingMachine.startRecording();
-  $('#coverageModal').hide();
+  if (isFirefox) {
+    alert("Unfortunately, Firefox choreography is unstable.  Please use another browser");
+  } else {
+    $('#coverageModal').hide();
+  }
 });
 
 $('#saveChoreoButton').click(function() {
@@ -286,7 +295,7 @@ function addATap(key) {
       }
       return Math.abs(tap.songTime - youTubePlayer.getCurrentTime());
     });
-    if (Math.abs(closest.songTime - youTubePlayer.getCurrentTime()) < 0.1) {
+    if (Math.abs(closest.songTime - youTubePlayer.getCurrentTime()) < 0.2) {
       closest.toDelete = true;
       playbackMachine.addHit();
     }
