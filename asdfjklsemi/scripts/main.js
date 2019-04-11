@@ -22,6 +22,13 @@ function param(name) {
   return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
 
+var videoID = param('v');
+var choreoID = param('choreo');
+if (param('tutorial') == '1') {
+  videoID = 'i1aZsi32lOE';
+  choreoID = '41075948548712040';
+}
+
 var tambourine;
 var trombone;
 sk.preload = function() {
@@ -56,7 +63,7 @@ $('#btnPlayGame, #btnPlayTutorial').click(function() {
   }
   $('#coverageModal').hide();
   playbackMachine.startPlayback();
-  db.ref('choreos/' + param('choreo') + '/timesLoaded').transaction(function(timesLoaded) {
+  db.ref('choreos/' + choreoID + '/timesLoaded').transaction(function(timesLoaded) {
     return timesLoaded + 1;
   });
 });
@@ -308,20 +315,20 @@ sk.keyTyped = function() {
   return false;
 }
 
-player.makePlayer(document.getElementById('video'), param('v'), function(p) {
+player.makePlayer(document.getElementById('video'), videoID, function(p) {
   youTubePlayer = p;
 });
 
-if (param('choreo') == 'new') {
+if (choreoID == 'new') {
   $('body').addClass('readyToRecord');
 } else {
-  db.ref('choreos/' + param('choreo')).once('value').then(function(snapshot) {
+  db.ref('choreos/' + choreoID).once('value').then(function(snapshot) {
     choreoTape.taps = snapshot.val().choreography;
     $('#choreographer').html(snapshot.val().choreographer);
     $('#playCount').html(snapshot.val().timesLoaded);
     playbackMachine.loadChoreo(choreoTape);
 
-    if (param('v') != snapshot.val().youtubeID) {
+    if (videoID != snapshot.val().youtubeID) {
       alert('error, invalid URL')
     }
   });
