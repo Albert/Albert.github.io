@@ -49,11 +49,10 @@ var db = firebase.database();
 
 var youTubePlayer;
 
-// update link to tutorial - currently it naively assumes url has a '?':
 var currHref = document.location.href;
-var newHref = currHref.replace('tutorial=0', '');
-newHref = newHref + '&tutorial=1';
-$('#btnTutorial').attr('href', newHref);
+var strippedHref = currHref.replace('&tutorial=1', '');
+$('#btnTutorial').attr('href', strippedHref + '&tutorial=1');
+$('#backToSong').attr('href', strippedHref);
 
 var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
@@ -197,7 +196,7 @@ var playbackMachine = {
     }
     $('body').addClass('choreoLoaded');
     var tutorialState = (param('tutorial') == '1') ? 'tutorial' : 'game';
-    $('.toLoad').addClass(tutorialState);
+    $('body').addClass(tutorialState);
     this.updateScore();
   },
   hits: 0,
@@ -218,7 +217,7 @@ var playbackMachine = {
     this.score = this.hits * 100 - this.misses * 10;
     $('#score').html(this.score);
     var tweetUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(document.location.href) + '&text=' + encodeURI('I just got a score of ' + this.score + ' on this YouTube keyboard rhythm game.  Can you do better?  ');
-    $('#tweetScore').attr('href', tweetUrl).html('Share your score on Twitter');
+    $('#tweetScore').attr('href', tweetUrl).html('Tweet your score');
   }
 };
 

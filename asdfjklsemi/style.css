@@ -20,41 +20,10 @@ body {
   background-position: center center;
   background-color: black;
 }
-#sidePanel #playGame { display: none; }
 #sidePanel #playbackPanel { display: block; }
 #sidePanel #recordPanel { display: none; }
 .readyToRecord #sidePanel #playbackPanel { display: none; }
 .readyToRecord #sidePanel #recordPanel { display: block; }
-
-.button,
-#sidePanel #recorderButton.save {
-  display: block;
-  position: static;
-  width: 300px;
-  height: 60px;
-  background-color: green;
-  color: white;
-  font-size: 40px;
-  font-family: arial, helvetica, sans-serif;
-  text-align: center;
-  line-height: 60px;
-}
-.button:hover {
-  background-color: lightgreen;
-}
-#sidePanel #recorderButton,
-#playGame {
-  position: fixed;
-  top: 0;
-  height: 200px;
-  line-height: 200px;
-  background-color: rgba(0, 128, 0, 0.9);
-}
-
-#sidePanel #recorderButton:hover,
-#playGame:hover {
-  background-color: rgba(144, 238, 144, 0.9);
-}
 
 #recorderButton.save {
   position: static;
@@ -138,8 +107,9 @@ body.videoLoaded.readyToRecord .toLoad { display: block; }
   padding-top: 10px;
 }
 
-.toLoad.game #isTutorial { display: none; }
-.toLoad.tutorial #isGame { display: none; }
+.showForTutorial { display: none; }
+body.tutorial .showForTutorial { display: block; }
+body.tutorial .hideForTutorial { display: none; }
 body.choreoLoaded #isChoreoMode {display: none; }
 body.readyToRecord .toLoad #isGame,
 body.readyToRecord .toLoad #isTutorial { display: none; }
