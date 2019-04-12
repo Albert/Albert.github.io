@@ -18,20 +18,20 @@
         <div class="toLoad">
 
 <p class="hideForTutorial">
-  <a class="modalButton primary" id="btnPlayGame" href="javascript:;">Play Game</a>
-  <a class="modalButton" id="btnTutorial" href="/asdfjklsemi?tutorial=1">Tutorial</a>
+  <a class="button large primary" id="btnPlayGame" href="javascript:;">Play Game</a>
+  <a class="button large" id="btnTutorial" href="/asdfjklsemi?tutorial=1">Tutorial</a>
 </p>
 <p class="showForTutorial">
-  <a class="modalButton primary" id="btnPlayTutorial" href="javascript:;">Play Tutorial</a>
+  <a class="button large primary" id="btnPlayTutorial" href="javascript:;">Play Tutorial</a>
 </p>
 <div id="isChoreoMode">
   <p>
-    <a class="modalButton primary" id="recorderButton" href="javascript:;">Record</a>
+    <a class="button large primary" id="recorderButton" href="javascript:;">Record</a>
   </p>
 </div>
 
           <div class="about"><a href="/#asdfjklsemi">About the game</a></div>
-          <a class="modalButton" id="mobileReminder" href="mailto:?subject=Reminder: try asdfjklsemi&body=Sadly, asdfjklsemi supports only desktop browsers.  To remind you to try this later, send yourself this email.%0D%0A%0D%0Ahttps://albert.github.io%23asdfjklsemi">On a mobile device?</a>
+          <a class="button" id="mobileReminder" href="mailto:?subject=Reminder: try asdfjklsemi&body=Sadly, asdfjklsemi supports only desktop browsers.  To remind you to try this later, send yourself this email.%0D%0A%0D%0Ahttps://albert.github.io%23asdfjklsemi">On a mobile device?</a>
         </div>
       </div>
     </div>
@@ -40,12 +40,12 @@
       <div id="video"></div>
       <div id="playbackPanel">
         <div class="textLine score">Score: <span id="score">0</span></div>
-        <div class="textLine hideForTutorial"><a id="tweetScore" href="https://twitter.com/intent/tweet?text=I%20just%20played%20asdfjklsemi%20http://albert.github.io/#asdfjklsemi">Tweet your score</a></div>
-        <div class="textLine showForTutorial"><a href="" id="backToSong">&larr; Back to Song</a></div>
-        <div class="textLine"><a id="replay" href="javascript:window.location.href=window.location.href">Restart</a></div>
+        <div class="textLine hideForTutorial"><a class="button" id="tweetScore" href="https://twitter.com/intent/tweet?text=I%20just%20played%20asdfjklsemi%20http://albert.github.io/#asdfjklsemi">Tweet your score</a></div>
+        <div class="textLine showForTutorial"><a class="button primary" href="" id="backToSong">&larr; Back to Song</a></div>
+        <div class="textLine"><a class="button" id="replay" href="javascript:window.location.href=window.location.href">Restart <span class="showForTutorial">Tutorial</span></a></div>
         <div class="textLine hideForTutorial">Play count: <span id="playCount">unknown</span></div>
         <div class="textLine hideForTutorial">Choreo by: <span id="choreographer">unknown</span></div>
-        <div class="textLine showForTutorial"><a href="/#asdfjklsemi" id="otherSongs">Browse other Songs</a></div>
+        <div class="textLine showForTutorial"><a class="button" href="/#asdfjklsemi" id="otherSongs">Browse other Songs</a></div>
         <div class="textLine foot">
           <a href="/asdfjklsemi/new.html">Level Creator</a>
           &nbsp;&nbsp;
