@@ -110,6 +110,7 @@ body.videoLoaded.readyToRecord .toLoad { display: block; }
 .showForTutorial { display: none; }
 body.tutorial .showForTutorial { display: block; }
 body.tutorial span.showForTutorial { display: inline; }
+body.readyToRecord .hideForTutorial,
 body.tutorial .hideForTutorial { display: none; }
 body.choreoLoaded #isChoreoMode {display: none; }
 body.readyToRecord .toLoad #isGame,
