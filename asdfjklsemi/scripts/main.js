@@ -94,7 +94,7 @@ $('#saveChoreoButton').click(function() {
     timesLoaded: 0
   }).then(function() {
     var playUrl = location.protocol + '//' + location.host + location.pathname + '?v=' + param('v') + '&choreo=' + randomKey;
-    if (confirm('Choreography recorded!  Try it out:')) {
+    if (confirm("Choreography recorded!\n\nYou'll now be redirected to your level's URL.  This is the URL you can share")) {
       window.location.href = playUrl;
     }
     $('#playUrl').html('<a href="' + playUrl + '">Try it here</a>');

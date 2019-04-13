@@ -79,17 +79,18 @@
         </div>
       </div>
       <div id="recordPanel">
-        <div class="textLine"><a class="button" id="saveChoreoButton" href="javascript:;">Save Choreography</a></div>
+        <div class="textLine">Once the song is complete:</div>
+        <div class="textLine"><a class="button primary" id="saveChoreoButton" href="javascript:;">Save Choreography</a></div>
         <div class="textLine"><a class="button" id="recordAgain" href="javascript:window.location.href=window.location.href">Rerecord (reload)</a></div>
         <div class="textLine" id="playUrl"></div>
       </div>
     </div>
     <script data-main="scripts/config" src="scripts/lib/require.js"></script>
     <script>
-/*
       require.config({
         urlArgs: "bust=" + (new Date()).getTime()
       });
+/*
 */
       require(['config'], function() {
         require(['main']);

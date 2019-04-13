@@ -25,6 +25,14 @@ body {
 .readyToRecord #sidePanel #playbackPanel { display: none; }
 .readyToRecord #sidePanel #recordPanel { display: block; }
 
+#recordPanel {
+  padding-top: 40px;
+}
+
+#saveChoreoButton {
+  margin-top: 20px;
+}
+
 #recorderButton.save {
   position: static;
   top: 0;
