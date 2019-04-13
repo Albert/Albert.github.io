@@ -24,6 +24,11 @@ function param(name) {
 
 var videoID = param('v');
 var choreoID = param('choreo');
+
+if (choreoID == null || videoID == null) {
+  window.location.href = "/#asdfjklsemi";
+}
+
 if (param('tutorial') == '1') {
   videoID = 'i1aZsi32lOE';
   choreoID = '41075948548712040';
