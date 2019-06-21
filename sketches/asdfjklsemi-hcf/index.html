@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>peertubeapi</title>
+    <script src="peertubeapi.js"></script>
+  </head>
+  <body>
+
+  <h2 style="font-size: 36px;">Instructions:</h2>
+  <ol style="font-size: 24px;">
+    <li>Open this page in *Firefox*</li>
+    <li>When the "Loading..." button changes to a "Start" button, press it</li>
+    <li>Videos will play (in a delayed synced fashion)</li>
+    <li>Watch the gameplay</li>
+    <li><a href="https://albert.github.io/asdfjklsemi/?v=yD_kCKiSkoI&choreo=32488779637710864">Play this level yourself, but Chrome ONLY</a></li>
+  </ol>
+  <button id="toShow" onclick="" style="font-size: 50px; background-color: red; padding: 20px 40px;">Loading...</button>
+  <br /><br />
+  <div id="blocker" style="position: absolute; width: 560px; height: 630px; z-index:100; cursor: not-allowed"></div>
+  <iframe id="hands" width="560" height="315" sandbox="allow-same-origin allow-scripts" src="https://diode.zone/videos/embed/8050c1d1-56e8-4912-9563-23cd0a7543b4?api=1" frameborder="0" allowfullscreen></iframe>
+  <br />
+  <div id="player">If you're seeing this there's a error on the page... please reread instructions</div>
+
+
+
+  <script>
+    setTimeout(
+      function(){
+        document.getElementById('toShow').setAttribute("style", "font-size: 50px; background-color: green; padding: 20px 40px;");
+        document.getElementById('toShow').innerHTML = "Start";
+        document.getElementById('toShow').setAttribute("onclick", "javascript:loadMovies();");
+      }, 5000
+    );
+
+document.addEventListener("DOMContentLoaded", async function(event) {
+  handsPlayer = new PeerTubePlayer(document.getElementById('hands'));
+
+  loadMovies = function() {
+    handsPlayer.play();
+    setTimeout(
+      function(){
+        handsPlayer.seek(0);
+      }, 2000
+    );
+    setTimeout(
+      function(){
+        player.unMute();
+        player.playVideo();
+      }, 11150
+    );
+  }
+
+});
+
+
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+var player;
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    height: '315',
+    width: '560',
+    videoId: 'yD_kCKiSkoI',
+    events: {
+      'onReady': onPlayerReady
+    }
+  });
+}
+
+function onPlayerReady(event) {
+  event.target.seekTo(0);
+  event.target.mute();
+  setTimeout(
+    function(){
+      event.target.seekTo(0);
+      event.target.pauseVideo();
+    }, 1000
+  );
+}
+
+var done = false;
+
+
+  </script>
+  </body>
+</html>
