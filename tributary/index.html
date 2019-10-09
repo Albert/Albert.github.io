@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>The Tributary</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+    <script src="gameSep29.js"></script>
+    <style>
+      #table_1 {
+        font-size: 10px;
+      }
+      /*
+      https://coolors.co/f77979-ffc88e-fff59b-acff9b-89acff
+        */
+      .hwangal { background-color: #f77979; }
+      .geoster { background-color: #ffc88e; }
+      .eelofson { background-color: #fff59b; }
+      .dmaranan { background-color: #acff9b; }
+      .stonedrew { background-color: #89acff; }
+
+/**
+* Tooltip Styles
+From this:
+https://chrisbracco.com/a-simple-css-tooltip/
+*/
+
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+position: relative;
+z-index: 2;
+cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+visibility: hidden;
+-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+opacity: 0;
+pointer-events: none;
+}
+
+/* Position tooltip above the element */
+[data-tooltip]:before {
+position: absolute;
+bottom: 150%;
+left: 50%;
+margin-bottom: 5px;
+margin-left: -80px;
+padding: 7px;
+width: 160px;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+background-color: #000;
+background-color: hsla(0, 0%, 20%, 0.9);
+color: #fff;
+content: attr(data-tooltip);
+text-align: center;
+font-size: 14px;
+line-height: 1.2;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+position: absolute;
+bottom: 150%;
+left: 50%;
+margin-left: -5px;
+width: 0;
+border-top: 5px solid #000;
+border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+border-right: 5px solid transparent;
+border-left: 5px solid transparent;
+content: " ";
+font-size: 0;
+line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+visibility: visible;
+-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+opacity: 1;
+}
+
+    </style>
+  </head>
+  <body>
+    <h1>The Tributary</h1>
+
+    <p>This page serves a place to share notes for what is happening on The Tributary, an online chat group (via Slack) comprised of people interested in improving the nature of online social media.</p>
+
+    <p>More info can be found on the <a href="https://www.notion.so/phedhex/Instructions-for-The-Tributary-08e48e9942c6408ba53e179ca8f712f4">instructions doc</a></p>
+
+    <p>Currently, the only thing this page does is analyze the last game that happened, over the week starting Sept 29.</p>
+
+    <h2>Round Recipients:</h2>
+    <table id="table_1">
+    </table>
+
+    <script>
+      let maxTransactions = 0;
+      for (let i = 0; i < rounds.length; i++) {
+        if(rounds[i].transactions.length > maxTransactions) {
+          maxTransactions = rounds[i].transactions.length;
+        }
+      }
+
+      let blankContainer = '';
+      for (let i = 0; i < maxTransactions; i++) {
+        blankContainer += '<td></td>';
+      }
+      $("#table_1").append(
+        "<tr>" +
+          "<td>Rnd</td>" +
+          "<td>Time</td>" +
+          blankContainer +
+        "</tr>"
+      );
+
+      for (let r = 0; r < rounds.length; r++) {
+        /*
+        console.log(rounds[r]);
+        console.log(rounds[r].timestamp);
+        */
+
+        let d = new Date(rounds[r].timestamp).toLocaleTimeString("en-US");
+        let most = 30;
+
+        let transactions = "";
+        let orderedTransaction = _.orderBy(rounds[r].transactions,'sender');
+        for (let i = 0; i < maxTransactions; i++) {
+          if (orderedTransaction[i] != undefined) {
+            console.log(orderedTransaction);
+          }
+          if (orderedTransaction[i] != undefined) {
+            let t = orderedTransaction[i];
+
+            transactions += '<td class="';
+            transactions +=   t.sender.replace('.', '');
+            transactions +=   '" data-tooltip="';
+            transactions +=   t.reason;
+            transactions += '">';
+
+            transactions += t.sender;
+            transactions += ' ';
+            transactions += (t.pennyAmount / 1000);
+            transactions += ' to ';
+            transactions += t.recipient;
+            transactions += '</td>';
+          }
+        }
+
+        $("#table_1").append(
+          "<tr>" +
+            "<td>" + r + "</td>" +
+            "<td>" + d +  "</td>" +
+            transactions +
+          "</tr>"
+        );
+      }
+    </script>
+  </body>
+<html>
+
