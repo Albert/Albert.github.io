@@ -103,7 +103,63 @@ opacity: 1;
     <table id="table_1">
     </table>
 
+    <h2>Totals per round:</h2>
+    <table id="table_2">
+    </table>
+
     <script>
+
+let users = _.sortBy(_.uniq(_.map(rounds[0].transactions, 'sender')));
+let roundTotals = [];
+let initialState = [];
+for (let u = 0; u < users.length; u++) {
+  initialState.push(500000);
+}
+roundTotals.push(initialState);
+
+for (let r = 0; r < rounds.length; r++) {
+  let thisRoundsTotals = [];
+  let lastRoundsTotals = roundTotals[r];
+  for (let u = 0; u < users.length; u++) {
+    let sends = _.filter(rounds[r].transactions, ['sender', users[u]]);
+    let outbound = _.sumBy(sends, 'pennyAmount');
+
+    let receipts = _.filter(rounds[r].transactions, ['recipient', users[u]]);
+    let inbound = _.sumBy(receipts, 'pennyAmount');
+
+    console.log(outbound);
+    console.log(inbound);
+    thisRoundsTotals.push(lastRoundsTotals[u] - outbound + inbound);
+  }
+  roundTotals.push(thisRoundsTotals);
+}
+
+let headers = '';
+for (let u = 0; u < users.length; u++) {
+  headers += '<td class="' + users[u].replace('.', '') + '">' + users[u] + "</td>"
+}
+
+$("#table_2").append(
+  "<tr>" +
+    '<td></td>' +
+    headers +
+  "</tr>"
+);
+
+for (let r = 0; r < roundTotals.length; r++) {
+  let totals = '';
+  for (let u = 0; u < users.length; u++) {
+    totals += '<td class="' + users[u].replace('.', '') + '">' + (roundTotals[r][u] / 1000) + "</td>"
+  }
+
+  $("#table_2").append(
+    "<tr>" +
+      "<td>" + r + "</td>" +
+      totals +
+    "</tr>"
+  );
+}
+
       let maxTransactions = 0;
       for (let i = 0; i < rounds.length; i++) {
         if(rounds[i].transactions.length > maxTransactions) {
@@ -124,20 +180,12 @@ opacity: 1;
       );
 
       for (let r = 0; r < rounds.length; r++) {
-        /*
-        console.log(rounds[r]);
-        console.log(rounds[r].timestamp);
-        */
-
         let d = new Date(rounds[r].timestamp).toLocaleTimeString("en-US");
         let most = 30;
 
         let transactions = "";
         let orderedTransaction = _.orderBy(rounds[r].transactions,'sender');
         for (let i = 0; i < maxTransactions; i++) {
-          if (orderedTransaction[i] != undefined) {
-            console.log(orderedTransaction);
-          }
           if (orderedTransaction[i] != undefined) {
             let t = orderedTransaction[i];
 
