@@ -128,14 +128,15 @@ var graphicalFeedback = {
     for (var i = 0; i < playbackMachine.keyPositions.length; i++) {
       var key = playbackMachine.keyPositions[i];
       var xPos = 50 + i * sketchWidth / 8;
+      var textSize = parseInt(param('textSize')) || 64;
       sk.push();
         sk.fill(0, 0, 0, 0);
         sk.stroke(255);
         sk.rect(xPos, sk.height - 50, 40, 40);
-        sk.textSize(64);
+        sk.textSize(textSize);
         sk.textAlign(sk.CENTER);
         sk.fill(0);
-        sk.text(key.toUpperCase(), xPos, sk.height - 25);
+        sk.text(key, xPos, sk.height - 56 + textSize / 2);
       sk.pop();
     }
   },
@@ -187,7 +188,15 @@ function tapRing(keyIdx, time) {
 }
 
 var playbackMachine = {
-  keyPositions: ['a', 's', 'd', 'f', 'j', 'k', 'l', ';'],
+  keyPositions: function() {
+    if (param('customButtons')) {
+      let customButtons = param('customButtons').split(',');
+      if (customButtons.length == 8) {
+        return customButtons;
+      }
+    }
+    return 'ASDFJKL;'.split('');
+  }(),
   startPlayback: function() {
     this.isPlaying = true;
     youTubePlayer.playVideo();
@@ -230,20 +239,25 @@ var playbackMachine = {
 function PlaybackTap(tapData) {
   this.keyVal = tapData.key;
   this.songTime = tapData.songTime;
-  this.xPosition = 50 + playbackMachine.keyPositions.indexOf(this.keyVal) * sketchWidth / 8;
+  this.xPosition = 50 + 'asdfjkl;'.split('').indexOf(this.keyVal) * sketchWidth / 8;
   this.draw = function() {
     var timeUntilTap = this.songTime - youTubePlayer.getCurrentTime();
     if (timeUntilTap > 5) {
       return false;
     }
     var y = sk.map(timeUntilTap, 1, 0, 0, sk.height) - 50;
+    var textSize = parseInt(param('textSize')) || 64;
     sk.push();
       sk.fill(255);
       sk.rect(this.xPosition, y, 40, 40);
-      sk.textSize(64);
+      sk.textSize(textSize);
       sk.textAlign(sk.CENTER);
       sk.fill(0);
-      sk.text(this.keyVal.toUpperCase(), this.xPosition, y + 25);
+      // This allows for custom text.
+      sk.text(playbackMachine.keyPositions['asdfjkl;'.split('').indexOf(this.keyVal)], this.xPosition, y - 6 + textSize / 2);
+
+      // (When the code didn't allow for custom text, I used this code)
+      // sk.text(this.keyVal.toUpperCase(), this.xPosition, y + 25);
     sk.pop();
   }
 }
